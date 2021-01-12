@@ -100,6 +100,47 @@ print(*[1 if dt in _set else 0 for dt in _list], sep = '\n')
 어... 이해가 잘 가시나요? 가신다면 그냥 스크롤을 아래로 쭉~~ 내리시면 됩니다.
 
 우선 List Comprehension은 다음과 같은 구조를 띄고 있습니다.
+> (변수를 활용해 만들 값) for (변수 명) in (순회할 수 있는 값)
+
+그렇기 때문에 List Comprehension으로 된 코드를 읽을 때는, 앞에부터 읽는게 아니라, for 뒤 부터 읽으면 꽤 편해요.
+
+이걸 인지하고 위 코드를 다시 보면, _list에 있는 원소를 dt라고 하고, 앞에 있는 `1 if dt in _set else 0`에 대입한다는 이야기네요.
+
+해당 내용은 _set에 원소가 들어있으면 1, 아니면 0을 리턴하라는 말이네요? 휴! 드디어 해석했습니다.
+
+물론 다차원 배열도 사용할 수 있습니다.
+```python
+square = [[x ** 2 for x in range(3)] for _ in range(3)]
+print(square) # [[1, 4, 9], [1, 4, 9], [1, 4, 9]]
+```
+코드의 길이를 확실히 줄일 수 있다는 장점이 있지만, 너무 길면 가독성도 해치고, 코드를 작성하는 본인도 "내가 뭘 하고 있지?" 라는 생각이 들 수 있습니다. 예를 들자면...
+```python
+matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+print([[x for x in row if x % 3 == 0] for row in matrix if sum(row) >= 10]) # [[6], [9]]
+```
+제발 이러진 마세요...
+
+참고로, 리스트 뿐만이 아니라 tuple, set, dict도 만들 수 있습니다.
+dict의 경우 뒷 부분에서 zip을 배우고 나면 정말 요긴하게 쓸 수 있습니다. (즉, 다음에 다룬다는 이야기입니다.) 사용법 자체는 List Comprehension과 유사합니다.
+* * *
+## Dictionary 잘 쓰기 
+* * *
+## Sorting
+* * *
+## 문자열
+- 
+* * *
+## Combination/Permutation
+* * *
+## 기타 짤막한 도움말
+쓸 예정인 친구들
+- zip
+- sum() (reduce()를 설명할까?) 
+- join
+- swap하기
+- for, while문 에서의 else
+- Enumerate
+
 * * *
 Reference
 ---------
