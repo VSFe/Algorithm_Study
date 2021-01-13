@@ -282,6 +282,7 @@ print(*_dict.items()) # ('apple', 3200) ('grape', 15200) ('orange', 9800) ('bana
 
 Sorting
 -------
+
 정렬은 **sort()** 라는 메소드가 있고, **sorted()** 라는 함수가 있습니다.
 
 어? 하나는 메소드고 하나는 함수라고요? 정확히 말하자면 전자의 경우 **리스트를 내부 정렬하는 메소드** 이고, 후자는 **컨테이너형 데이터를 받아 정렬된 리스트를 돌려주는 함수** 입니다.
@@ -318,29 +319,74 @@ _list = [(1, 3), (8, 2), (2, 5), (4, 7)]
 sorted_list = sorted(_list, key = lambda dt: dt[1]) # (8, 2), (1, 3), (2, 5), (4, 7)
 ```
 
+lambda가 뭐죠? 우선 key는 함수를 입력 받습니다. 즉, lambda가 함수라는 것을 알 수 있습니다.
+
+정확히 말해서, lambda는 **익명 함수**라는 것으로, 함수의 이름을 명시하지 않고 일회성으로 사용하기 위해 정의하는 것입니다. 여기서 *dt*는 함수에서 사용할 변수명으로, dt는 각각의 튜플을 저런식으로 사용하겠다는 겁니다.
+
+즉, 저 문구를 정리하면, **튜플의 첫번째 값을 기준으로 정렬하겠다.** 라는 것이죠.
+
+그렇다면 위에서 제기한 상황에선 어떻게 정렬을 해야할까요?
+
+```python
+_list = [(1, 3), (8, 2), (2, 5), (4, 7)]
+sorted_list = sorted(_list, key = lambda dt: (dt[1], -dt[0])) # (8, 2), (1, 3), (2, 5), (4, 7)
+```
+
+이런식으로 해주면 됩니다. 조건이 여러개인 경우 다음과 같이 튜플 형태로 묶어주는데, 음수가 되면 내림차순으로 정렬한다고 생각하면 됩니다. (사실은 각각의 값이 음수가 되면 대소관계가 반전되기 때문에, 음수로 변환해서 대소관계를 비교해서 정렬하는 것입니다.)
+
+lambda를 사용하면 정말 다양한 방식으로 정렬을 할 수 있습니다.
+
+```python
+_list = ["CHicken", "hamburger", "Sushi", "chocolate"]
+
+print(sorted(_list)) # ['CHicken', 'Sushi', 'chocolate', 'hamburger']
+print(sorted(_list, key = lambda dt: dt.lower())) # ['CHicken', 'chocolate', 'hamburger', 'Sushi']
+```
+
+일반적으로 문자열은 대소관계를 비교하기 때문에, 다음과 같이 모두 소문자로 바꿔버리면 대소관계 상관 없이 정렬을 할 수 있습니다.
 
 * * *
 
 문자열
 -----
 
+코딩테스트를 파이썬으로 보시는 분들의 일부는 문자열 처리의 장점을 내세웁니다. 실제로 파이썬은 다른 언어보다 문자열 처리가 좀 편한 편이죠. 
 
 * * *
 
 Combination/Permutation
 -----------------------
 
+
+
 * * *
 
 기타 짤막한 도움말
 ------------------
 
-### zip
-
-
 ### sum
 
-파이썬에는 `reduce()`라는 함수가 있습니다. 예전 Python 2 시절에는 꽤 많이 썼는데, 
+파이썬에는 `reduce()`라는 함수가 있습니다. 예전 Python 2 시절에는 꽤 많이 썼는데, iterable한 값에 연속적으로 연산을 해 하나의 결과물을 출력하는 함수입니다.
+
+```python
+from functools import reduce
+_list = [1, 2, 3, 4, 5]
+def sum(a, b):
+    return a + b
+
+reduce(sum, _list) # 15
+```
+
+뭔가 쓸만할 것 같은 함수죠? 다만 Python 3 에서는 사용하지 않기를 권하고 있고, 이를 대체하기 위한 함수가 여럿 나왔습니다. (all(), any() 등등...)
+
+저기에서 떨어져 나온 함수 중에 하나가 `sum()` 입니다. 뭐냐고요?
+
+```python
+_list = [1, 2, 3, 4, 5]
+print(sum(_list)) # 15
+```
+
+이겁니다. 위에 있는 reduce()를 사용하는 것 보다 이게 몇 배는 더 쉽죠?
 
 ### join
 
@@ -348,7 +394,7 @@ Combination/Permutation
 
 `1, 2, 3, 4, 5, 6, 7, 8` 처럼 출력을 하라고 하네요.
 
-우선 이런 방법을 떠올릴 수 있겠죠?
+우선 이런 방법을 떠올릴 수 있지 않을까요?
 
 ```python
 _list = [1, 2, 3, 4, 5, 6, 7, 8]
@@ -363,15 +409,128 @@ _list = [1, 2, 3, 4, 5, 6, 7, 8]
 print(', '.join(_list))
 ```
 
-오? 이게 뭘까요? 
+오? 이게 뭘까요? join에 대한 정의를 봅시다.
+> iterable 의 문자열들을 이어 붙인 문자열을 돌려줍니다.
+
+정확히 말하면 str 클래스의 메소드인데, iterable한 데이터들 사이 사이에 문자열을 붙여서 문자열로 되돌려 줍니다.
+그렇기 때문에 굳이 출력할 때가 아니더라도 사용할 수 있다는 장점이 있습니다.
 
 ### swap하기
 
+C 스타일의 언어를 사용하다 보면, 두 값을 서로 바꿔야 할 때가 있습니다.
+
+```c
+int a = 3, b = 5;
+int tmp = a;
+a = b;
+b = tmp;
+```
+
+이런식으로 임시 변수를 만들어서 값을 바꾸곤 하는데, 파이썬은 그냥
+
+```python
+a, b = b, a
+```
+
+하면 됩니다. 정말 쉽죠?
 
 ### for, while문 에서의 else
 
+팁으로 넣어놓긴 하지만, 사용할 땐 좀 신중하게 사용해야 합니다.
+
+이중 이상의 반복문을 사용하다가 중간에 break를 해야 할 때가 있습니다. 흔히 C 스타일의 언어는 다음과 같이 사용하죠.
+
+```c
+for (int i = 0; i < N; i++) {
+    bool tmp = true;
+    for (int j = 0; j < N; j++) {
+        if (sample[i][j] != 1) {
+            tmp = false;
+            break;
+        }
+    }
+    if(tmp) {
+        // Some Code...
+    }
+}
+```
+
+이런식으로, flag에 해당하는 변수를 하나 만들어서 참/거짓 여부를 판단합니다. 파이썬은 이걸 다음과 같이 사용할 수 있습니다.
+
+```python
+for i in range(N):
+    for j in range(N):
+        if sample[i][j] != 1:
+            break
+    else:
+        # Some Code...
+```
+
+어? 굉장히 낯선 코드입니다. for와 while 구문을 진행하다가 else가 나오면, **반복문을 break로 탈출하지 않았다면 진입**하는 구간으로 의미가 변경됩니다.
+
+다만, 코드를 줄이는덴 좋긴 하지만, 상황에 따라 본인도 코드를 헷갈려 할 수 있습니다. 이걸 사용하기 전엔 한 번 생각해보고 (익숙해지고 싶다면 주석을 쓰셔도 되겠네요.) 사용해보는걸 권장합니다.
+
 
 ### Enumerate
+
+for 를 사용하면 일반적으로 `range`를 사용해서 범위를 표시하거나, iterable한 데이터를 가져와서 내용물을 꺼냅니다.
+
+다만 이런 경우가 있죠.
+
+```python
+_list = [a, b, c, d, e, f, g]
+# 목표: (1, a), (2, b), (3, c)...
+```
+
+분명 iterable하게 for를 쓰고 싶지만, 앞에 있는 숫자 때문에 할 수 없이
+
+```python
+_list = [a, b, c, d, e, f, g]
+for i in range(len(_list)):
+    print(i, _list[i])
+```
+
+이렇게 쓰곤 합니다. 이걸 개선해보죠.
+
+```python
+_list = [a, b, c, d, e, f, g]
+for idx, val in enumerate(_list):
+    print(idx, val)
+```
+
+`enumerate`라는 단어는 **열거하다** 라는 의미를 갖고 있습니다. enumerate를 사용하면 **(인덱스, 값)** 의 형태의 튜플을 돌려줍니다. 즉, 힘들게 range()를 사용하지 않아도 되는거죠!
+
+### Counter
+
+가끔, 문자열에 들어간 글자를 셀 필요가 있습니다. 일반적으로는 딕셔너리를 사용해서 해결하곤 하죠.
+
+```python
+def countLetters(word):
+    counter = {}
+    for letter in word:
+        counter.setdefault(letter, 0)
+        counter[letter] += 1
+    return counter
+
+countLetters('Hello World') # {'H': 1, 'e': 1, 'l': 3, 'o': 2, ' ': 1, 'W': 1, 'r': 1, 'd': 1}
+```
+
+사실 이것도 충분히 쓸만합니다. 그런데 이걸 더 줄일 순 없을까요?
+
+```python
+from collections import Counter
+Counter('hello world') # Counter({'l': 3, 'o': 2, 'h': 1, 'e': 1, ' ': 1, 'w': 1, 'r': 1, 'd': 1})
+```
+
+Counter는 다양한 메소드를 지원합니다.
+
+```python
+from collections import Counter
+Counter('hello world').most_common() # [('l', 3), ('o', 2), ('h', 1), ('e', 1), (' ', 1), ('w', 1), ('r', 1), ('d', 1)]
+Counter('hello world').most_common(2) # [('l', 3), ('o', 2)]
+```
+
+`most_common()`을 사용하면 전체 결과를 튜플의 리스트로 리턴하고, 숫자를 명시하면 상위 n개에 해당하는 결과만 출력합니다.
 
 * * *
 
@@ -380,4 +539,4 @@ Reference
 
 - 파이썬 언어 레퍼런스 [이동](https://docs.python.org/ko/3/reference/index.html)
 - 전문가를 위한 파이썬 (원제 Fluent Python) - 루시아누 하말류 [구매](https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=88728476)
-- Python Cookbook - 데이비드 비즐리, 브라이언 K. 존스 [구매](https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=35468006)ㅜㅗㅎ러
+- Python Cookbook - 데이비드 비즐리, 브라이언 K. 존스 [구매](https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=35468006)
