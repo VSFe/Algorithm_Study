@@ -27,7 +27,7 @@ int main() {
 		vec.push_back({age, name});
 	}
 
-	sort(vec.begin(), vec.end(), compare);
+	stable_sort(vec.begin(), vec.end(), compare);
 
 	for(auto i : vec) {
 		cout << i.age << " " << i.name << "\n";
