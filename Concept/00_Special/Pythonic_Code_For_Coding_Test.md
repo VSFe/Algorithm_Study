@@ -148,6 +148,34 @@ print([[x for x in row if x % 3 == 0] for row in matrix if sum(row) >= 10]) # [[
 
 참고로, 리스트 뿐만이 아니라 tuple, set, dict도 만들 수 있습니다.
 dict의 경우 뒷 부분에서 zip을 배우고 나면 정말 요긴하게 쓸 수 있습니다. (즉, 다음에 다룬다는 이야기입니다.) 사용법 자체는 List Comprehension과 유사합니다.
+
+(0319 추가) 추가적인 예제를 조금 더 준비해보았습니다. 이 예제를 통해 확실히 List Comprehension에 대해 이해해봅시다
+```python
+# 1 ~ 10을 담는 리스트를 만들어봅시다.
+_list = [i for i in range(10)]
+
+# 2, 4, 6, ..., 20을 담는 리스트를 만들어봅시다.
+_list = [2 * i for i in range(10)]
+
+# 주어진 리스트를 받아 3의 배수만 담는 리스트를 만들어봅시다.
+tmp = [random.randrange(1, 200) for i in range(100)]
+_list = [i for i in tmp if i % 3 == 0]
+
+# 값이 두개 들어있는 튜플을 받아 리스트를 생성하되, 튜플 내부의 값을 뒤집어서 저장하세요.
+list_of_tupel = [(i, j) for i in range(100), for j in range(100, 0, -1)]
+_list = [(j, i) for i, j in list_of_tuple]
+
+# 주어진 리스트를 그대로 담되, 15가 넘어가는 값은 15로 바꿔서 저장합시다.
+_list = [i if i <= 15 else 15 for i in tmp]
+
+# 두 개의 리스트를 합치되, 가능한 모든 조합을 저장하는 리스트를 만들어봅시다.
+x = [i for i in range(5)]
+y = [i for i in range(5)]
+_list = [(i, j) for i in x, for j in y]
+```
+
+특히 초보자 분들이 많이 헷갈리시는 것이 if의 쓰임새일거에요.
+앞쪽에 붙는 if는 삼항 연산자의 if라고 생각하시면 되고, (즉, 값이 앞 조건을 만족하면 어떤 값, 만족하지 못하면 다른 값) 맨 끝에 붙는 if는 값을 넣을지, 뺄지 결정하는 조건이라고 생각하시면 됩니다.
 * * *
 
 Dictionary 잘 쓰기
