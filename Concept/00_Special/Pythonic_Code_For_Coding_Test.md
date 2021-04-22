@@ -162,7 +162,7 @@ tmp = [random.randrange(1, 200) for i in range(100)]
 _list = [i for i in tmp if i % 3 == 0]
 
 # 값이 두개 들어있는 튜플을 받아 리스트를 생성하되, 튜플 내부의 값을 뒤집어서 저장하세요.
-list_of_tupel = [(i, j) for i in range(100), for j in range(100, 0, -1)]
+list_of_tuple = [(i, j) for i in range(100), for j in range(100, 0, -1)]
 _list = [(j, i) for i, j in list_of_tuple]
 
 # 주어진 리스트를 그대로 담되, 15가 넘어가는 값은 15로 바꿔서 저장합시다.
