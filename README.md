@@ -5,7 +5,7 @@ Algorithm_Study
 
 강의 및 과외 문의는 이메일로 부탁드립니다.
 
-현재는 Python으로만 자료를 제공하고 있습니다. 추후 C++ 및 Java Solutiuon 코드도 추가 예정입니다.
+현재는 Python으로만 자료를 제공하고 있습니다. 추후 C++ 및 Java Solution 코드도 추가 예정입니다.
 
 ---
 
