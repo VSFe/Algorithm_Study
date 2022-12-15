@@ -134,7 +134,7 @@ print(*[1 if dt in _set else 0 for dt in _list], sep = '\n')
 
 ```python
 square = [[x ** 2 for x in range(3)] for _ in range(3)]
-print(square) # [[1, 4, 9], [1, 4, 9], [1, 4, 9]]
+print(square) # [[0, 1, 4], [0, 1, 4], [0, 1, 4]]
 ```
 
 코드의 길이를 확실히 줄일 수 있다는 장점이 있지만, 너무 길면 가독성도 해치고, 코드를 작성하는 본인도 "내가 뭘 하고 있지?" 라는 생각이 들 수 있습니다. 예를 들자면...
