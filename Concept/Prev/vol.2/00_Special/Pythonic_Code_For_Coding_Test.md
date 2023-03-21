@@ -207,7 +207,7 @@ data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 _data_set = set(data)
 
 for i in range(100):
-    if i in data:
+    if i in _data_set:
         print(1)
 ```
 
